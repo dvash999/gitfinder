@@ -1,15 +1,21 @@
 import React, { Component } from "react";
-import initStateField from '../helpers/stateHandlers';
+import Alert from './Alert';
+import updateStateField from '../helpers/stateHandlers';
 
 class Search extends Component {
   state = {
-    text: ''
+    text: '',
+    isAlert: false
   };
 
   onSubmit = (e) => {
       e.preventDefault();
+
+      if (!this.state.text) return this.props.setAlert('Warning', 'Something Went Wrong');
+
       this.props.searchUsers(this.state.text);
-      initStateField('text', this);
+      this.setState({text: ''})
+      // updateStateField({text: ''}, this);
   };
 
   render() {
@@ -20,6 +26,7 @@ class Search extends Component {
             type="text"
             name="text"
             placholder="Search Users..."
+            value={this.state.text}
             onChange={e => this.setState({ [e.target.name]:[e.target.value] })}
           />
           <button

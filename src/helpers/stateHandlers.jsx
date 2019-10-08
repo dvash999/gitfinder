@@ -1,13 +1,6 @@
-export function initStateField(field, _this) {
-    return _this.setState({field: null})
+function updateStateField(newState = {}, _this) {
+    console.log(newState);
+    return _this.setState({newState})
 }
 
-export function startSpinner(_this) {
-    return _this.setState({loading: true})
-}
-
-export function stopSpinner(_this) {
-    return _this.setState({loading: false})
-}
-
-export default initStateField;
+export default updateStateField;
