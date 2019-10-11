@@ -2,7 +2,7 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #dc3545;
+  --primary-color: #165388;
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -112,7 +112,7 @@ img {
 /* Cards */
 .card {
   padding: 1rem;
-  border: #ccc 1px dotted;
+  border: #ccc 1px solid;
   margin: 0.7rem 0;
 }
 
@@ -175,6 +175,18 @@ img {
 }
 .my-3 {
   margin: 3rem 0;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
+}
+
+.mt-4 {
+  margin-top: 4rem;
 }
 
 /* Grid */
@@ -308,9 +320,9 @@ img {
 }
 
 /* Forms */
-input {
-  margin: 1.2rem 0;
-}
+/*input {*/
+/*  margin: 1.2rem 0;*/
+/*}*/
 
 .form-text {
   display: block;
@@ -345,6 +357,36 @@ table td {
 table th {
   background: var(--light-color);
 }
+
+
+
+
+
+.white {
+  color: white;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.input-width {
+  width: 500px;
+  flex: 3;
+}
+
+
+
+
+
 
 /* Navbar */
 .navbar {
