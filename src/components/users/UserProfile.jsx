@@ -57,7 +57,7 @@ class UserProfile extends Component {
               />
               <div className="text-left">
                 <h1>{name}</h1>
-                <p>Location: {location}</p>
+                {location && <p>Location: {location}</p>}
                 <p>Hireable: {this.isHireable(hireable)}</p>
               </div>
             </div>
@@ -75,7 +75,7 @@ class UserProfile extends Component {
                 </a>
                 <ul>
                   <li>
-                    {login && (
+                    {login && name && (
                       <Fragment>
                         <b>Username: {name}</b>
                       </Fragment>

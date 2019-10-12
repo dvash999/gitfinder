@@ -17,7 +17,7 @@ class App extends Component {
     user: {},
     repos: [],
     loading: false,
-    alert: null,
+    alert: null
   };
 
   gitCredentials;
@@ -64,7 +64,7 @@ class App extends Component {
       `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&${this.gitCredentials}`
     );
 
-    this.setState({repos: res.data, loading: false});
+    this.setState({ repos: res.data, loading: false });
   };
 
   render() {
@@ -78,8 +78,10 @@ class App extends Component {
           setAlert={this.setAlert}
           searchUsers={this.searchUsers}
         />
-        {this.state.alert && <Alert alert={this.state.alert} />}
-        <div className="container">
+
+        <div className="container-custom">
+          {this.state.alert && <Alert alert={this.state.alert} />}
+
           <Switch>
             <Route exact path="/" render={props => <Home />} />
 
