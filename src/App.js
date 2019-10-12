@@ -13,19 +13,30 @@ import "./App.css";
 
 class App extends Component {
   state = {
+    users: [],
+    user: {},
+    repos: [],
     loading: false,
     alert: null,
-    users: [],
-    user: {}
+  };
+
+  gitCredentials;
+
+  constructor() {
+    super();
+    this.gitCredentials = `client_id=${process.env.REACT_APP_GITHUB_ID} &client_secret=${process.env.REACT_APP_GITHUB_SECRET}`;
+  }
+
+  setAlert = (type, msg) => {
+    this.setState({ alert: { type, msg } });
+    setTimeout(() => this.setState({ alert: null }), 3000);
   };
 
   getUsers = async searchQuery => {
     this.setState({ loading: true });
 
     const res = await axios.get(
-      `https://api.github.com/search/users?q=${searchQuery}&client_id=
-            ${process.env.REACT_APP_GITHUB_ID}
-            &client_secret=${process.env.REACT_APP_GITHUB_SECRET}`
+      `https://api.github.com/search/users?q=${searchQuery}&${this.gitCredentials}`
     );
 
     this.setState({ users: res.data.items, loading: false });
@@ -36,38 +47,34 @@ class App extends Component {
     this.props.history.push("/users");
   };
 
-  getUserByUsername = async username => {
+  getUserProfile = async username => {
     this.setState({ loading: true });
 
     const res = await axios.get(
-      `https://api.github.com/users/${username}?client_id=
-            ${process.env.REACT_APP_GITHUB_ID}
-            &client_secret=${process.env.REACT_APP_GITHUB_SECRET}`
+      `https://api.github.com/users/${username}?${this.gitCredentials}`
     );
 
     this.setState({ user: res.data, loading: false });
   };
 
-  clearUsers = () => {
+  getUserRepos = async username => {
     this.setState({ loading: true });
-    this.setState({ users: [], loading: false });
-    this.props.history.push("/");
-  };
 
-  setAlert = (type, msg) => {
-    this.setState({ alert: { type, msg } });
-    setTimeout(() => this.setState({ alert: null }), 3000);
+    const res = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&${this.gitCredentials}`
+    );
+
+    this.setState({repos: res.data, loading: false});
   };
 
   render() {
-    const { users, user, loading } = this.state;
+    const { users, user, repos, loading } = this.state;
 
     return (
       <div>
         <Navbar
           title="GitFinder"
           users={users}
-          clearUsers={this.clearUsers}
           setAlert={this.setAlert}
           searchUsers={this.searchUsers}
         />
@@ -91,9 +98,9 @@ class App extends Component {
                 <UserProfile
                   {...props}
                   user={user}
-                  getUserByUsername={username =>
-                    this.getUserByUsername(username)
-                  }
+                  repos={repos}
+                  getUserRepos={this.getUserRepos}
+                  getUserProfile={this.getUserProfile}
                   loading={loading}
                 />
               )}

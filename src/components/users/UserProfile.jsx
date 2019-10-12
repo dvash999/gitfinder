@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import RepoList from "../repos/RepoList";
 import Spinner from "../layout/spinner/Spinner";
 
 class UserProfile extends Component {
   componentDidMount() {
-    this.props.getUserByUsername(this.props.match.params.login);
+    const credentials = this.props.match.params.login;
+
+    this.props.getUserProfile(credentials);
+    this.props.getUserRepos(credentials);
   }
 
   isHireable = hireable => {
@@ -32,7 +36,7 @@ class UserProfile extends Component {
       hireable
     } = this.props.user;
 
-    const { loading } = this.props;
+    const { loading, repos } = this.props;
 
     if (loading) return <Spinner />;
 
@@ -104,6 +108,7 @@ class UserProfile extends Component {
             <div className="badge badge-dark">Public Gist: {public_gists}</div>
           </div>
         </div>
+        <RepoList repos={repos} />
       </Fragment>
     );
   }

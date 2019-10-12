@@ -413,6 +413,10 @@ table th {
   border: 1px solid red;
 }
 
+.remove_underscore {
+  text-decoration: none !important;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .hide-sm {
