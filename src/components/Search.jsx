@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 class Search extends Component {
   state = {
@@ -18,27 +18,25 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
-        <form className="flex" onSubmit={this.onSubmit}>
-            <input
-              type="text"
-              name="text"
-              placeholder="Search Users..."
-              className="ml-4"
-              value={this.state.text}
-              onChange={e =>
-                this.setState({ [e.target.name]: [e.target.value] })
-              }
-            />
-            <button
-              type="submit"
-              value="Search"
-              className="btn btn-dark"
-            >
-              Search
-            </button>
+      <Fragment>
+        <form className="d-flex" onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            name="text"
+            placeholder="Search Users..."
+            className="ml-4"
+            value={this.state.text}
+            onChange={e => this.setState({ [e.target.name]: [e.target.value] })}
+          />
+          <button
+            type="submit"
+            value="Search"
+            className="btn btn-dark btn-custom"
+          >
+            Search
+          </button>
         </form>
-      </div>
+      </Fragment>
     );
   }
 }

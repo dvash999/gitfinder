@@ -2,35 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Search from "../../Search";
 
-const Navbar = ({ icon, title, users, setAlert, clearUsers, searchUsers }) => {
+const Navbar = ({ setAlert, searchUsers }) => {
   return (
-    <nav className="navbar-custom navbar-color-custom">
-      <div className="d-flex">
-        <h2 className="ml-2">
-          {/*<i className="fa fa-git" />*/}
-          GitFinder
-        </h2>
-        <Search
-          searchUsers={searchQuery => searchUsers(searchQuery)}
-          setAlert={setAlert}
-        />
-        {users.length > 0 && (
-          <button
-            className="btn btn-light btn-block my-1"
-            value="Clear"
-            onClick={clearUsers}
-          >
-            Clear
-          </button>
-        )}
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-        </ul>
+    <nav className="navbar-custom navbar-color-custom d-flex justify-content-between">
+      <h2 className="ml-2">GitFinder</h2>
+      <div className="d-flex flex-grow-1 justify-content-between">
+        <div className="flex-grow-1 mx-4">
+          <Search
+            searchUsers={searchQuery => searchUsers(searchQuery)}
+            setAlert={setAlert}
+          />
+        </div>
+        <div className="d-flex align-items-center">
+          <ul>
+            <li className="mr-3">
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );

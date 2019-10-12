@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import axios from "axios";
 
 import Navbar from "./components/layout/navbar/Navbar";
 import Alert from "./components/Alert";
-import Home from './components/Home';
+import Home from "./components/Home";
 import About from "./components/pages/About";
 import UserProfile from "./components/users/UserProfile";
 import UserList from "./components/users/UserList";
-
 
 import "./App.css";
 
@@ -34,7 +33,7 @@ class App extends Component {
 
   searchUsers = searchQuery => {
     this.getUsers(searchQuery);
-    this.props.history.push('/users');
+    this.props.history.push("/users");
   };
 
   getUserByUsername = async username => {
@@ -52,7 +51,7 @@ class App extends Component {
   clearUsers = () => {
     this.setState({ loading: true });
     this.setState({ users: [], loading: false });
-    this.props.history.push('/');
+    this.props.history.push("/");
   };
 
   setAlert = (type, msg) => {
@@ -74,13 +73,8 @@ class App extends Component {
         />
         {this.state.alert && <Alert alert={this.state.alert} />}
         <div className="container">
-
           <Switch>
-            <Route
-              exact
-              path='/'
-              render={props => <Home/>}
-            />
+            <Route exact path="/" render={props => <Home />} />
 
             <Route
               exact

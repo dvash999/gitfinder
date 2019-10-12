@@ -34,6 +34,7 @@ a:hover {
 
 ul {
   list-style: none;
+  margin: 0 !important;
 }
 
 img {
@@ -208,7 +209,7 @@ img {
   grid-gap: 1rem;
 }
 
-.btn {
+.btn-custom {
   display: inline-block;
   background: var(--light-color);
   color: #333;
@@ -219,6 +220,7 @@ img {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+  width: 150px;
 }
 
 .btn-link {
@@ -320,7 +322,6 @@ img {
 }
 
 /* Forms */
-
 .form-text {
   display: block;
   margin-top: 0.3rem;
@@ -334,10 +335,15 @@ input[type='date'],
 select,
 textarea {
   display: block;
-  width: 800px;
+  /*width: 800px;*/
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
+}
+
+input[type='text'] {
+  flex:1;
+  display:block;
 }
 
 input[type='submit'],
@@ -371,35 +377,28 @@ table th {
   justify-content: center;
 }
 
-.flex {
-  display: flex;
-}
-
 .input-width {
-  width: 500px;
-  flex: 3;
+  /*width: 500px;*/
+  /*flex: 3;*/
 }
 
 
 /* Navbar */
 .navbar-custom {
-  /*display: flex;*/
   padding: 0.7rem 1rem;
   z-index: 1;
-  width: 100%;
   opacity: 0.9;
   margin-bottom: 1rem;
 }
 
 .navbar-custom ul {
   display: flex;
-  justify-content: flex-end;
 }
 
 .navbar-custom a {
   color: #fff;
   padding: 0.45rem;
-  margin: 0 0.25rem;
+  margin:  0.25rem;
 }
 
 .navbar-custom a:hover {
@@ -408,6 +407,10 @@ table th {
 
 .navbar-custom .welcome span {
   margin-right: 0.6rem;
+}
+
+.search {
+  border: 1px solid red;
 }
 
 /* Mobile Styles */
@@ -446,3 +449,4 @@ table th {
     justify-content: center;
   }
 }
+
