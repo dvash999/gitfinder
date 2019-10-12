@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Alert from "./Alert";
-import updateStateField from "../helpers/stateHandlers";
 
 class Search extends Component {
   state = {
@@ -16,7 +14,6 @@ class Search extends Component {
 
     this.props.searchUsers(this.state.text);
     this.setState({ text: "" });
-    // updateStateField({text: ''}, this);
   };
 
   render() {

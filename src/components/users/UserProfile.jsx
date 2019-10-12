@@ -38,7 +38,7 @@ class UserProfile extends Component {
 
     return (
       <Fragment>
-        <Link to="/" className="btn btn-light">
+        <Link to="/users" className="btn btn-light">
           Back to Search
         </Link>
 

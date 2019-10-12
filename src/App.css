@@ -259,7 +259,7 @@ img {
 
 .btn-primary,
 .bg-primary,
-.badge-primary,
+.navbar-color-custom,
 .alert-primary {
   background: var(--primary-color);
   color: #fff;
@@ -320,9 +320,6 @@ img {
 }
 
 /* Forms */
-/*input {*/
-/*  margin: 1.2rem 0;*/
-/*}*/
 
 .form-text {
   display: block;
@@ -337,7 +334,7 @@ input[type='date'],
 select,
 textarea {
   display: block;
-  width: 100%;
+  width: 800px;
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
@@ -384,37 +381,32 @@ table th {
 }
 
 
-
-
-
-
 /* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.7rem 2rem;
+.navbar-custom {
+  /*display: flex;*/
+  padding: 0.7rem 1rem;
   z-index: 1;
   width: 100%;
   opacity: 0.9;
   margin-bottom: 1rem;
 }
 
-.navbar ul {
+.navbar-custom ul {
   display: flex;
+  justify-content: flex-end;
 }
 
-.navbar a {
+.navbar-custom a {
   color: #fff;
   padding: 0.45rem;
   margin: 0 0.25rem;
 }
 
-.navbar a:hover {
+.navbar-custom a:hover {
   color: var(--light-color);
 }
 
-.navbar .welcome span {
+.navbar-custom .welcome span {
   margin-right: 0.6rem;
 }
 
@@ -444,12 +436,12 @@ table th {
   }
 
   /* Navbar */
-  .navbar {
+  .navbar-custom {
     display: block;
     text-align: center;
   }
 
-  .navbar ul {
+  .navbar-custom ul {
     text-align: center;
     justify-content: center;
   }

@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
 import axios from "axios";
 
 import Navbar from "./components/layout/navbar/Navbar";
-import UserList from "./components/users/UserList";
-import UserProfile from "./components/users/UserProfile";
 import Alert from "./components/Alert";
+import Home from './components/Home';
 import About from "./components/pages/About";
-import Search from "./components/Search";
+import UserProfile from "./components/users/UserProfile";
+import UserList from "./components/users/UserList";
+
 
 import "./App.css";
 
@@ -33,6 +34,7 @@ class App extends Component {
 
   searchUsers = searchQuery => {
     this.getUsers(searchQuery);
+    this.props.history.push('/users');
   };
 
   getUserByUsername = async username => {
@@ -50,6 +52,7 @@ class App extends Component {
   clearUsers = () => {
     this.setState({ loading: true });
     this.setState({ users: [], loading: false });
+    this.props.history.push('/');
   };
 
   setAlert = (type, msg) => {
@@ -61,67 +64,51 @@ class App extends Component {
     const { users, user, loading } = this.state;
 
     return (
-      <Router>
-        <div className="App">
-          <Navbar title="GitFinder" />
-          {this.state.alert && <Alert alert={this.state.alert} />}
-          <div className="container">
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <Fragment>
-                    <div className="flex">
-                      <h2 className=''>
-                        {/*<i className="fa fa-git" />*/}
-                        GitFinder
-                      </h2>
-                      <Search
-                        searchUsers={searchQuery =>
-                          this.searchUsers(searchQuery)
-                        }
-                        setAlert={this.setAlert}
-                      />
-                    </div>
-                    {users.length > 0 && (
-                      <button
-                        className="btn btn-light btn-block my-1"
-                        value="Clear"
-                        onClick={this.clearUsers}
-                      >
-                        Clear
-                      </button>
-                    )}
-                    <UserList
-                      users={this.state.users}
-                      loading={this.state.loading}
-                    />
-                  </Fragment>
-                )}
-              />
-              <Route exact path="/about" component={About} />
+      <div>
+        <Navbar
+          title="GitFinder"
+          users={users}
+          clearUsers={this.clearUsers}
+          setAlert={this.setAlert}
+          searchUsers={this.searchUsers}
+        />
+        {this.state.alert && <Alert alert={this.state.alert} />}
+        <div className="container">
 
-              <Route
-                exact
-                path="/users/:login"
-                render={props => (
-                  <UserProfile
-                    {...props}
-                    user={user}
-                    getUserByUsername={username =>
-                      this.getUserByUsername(username)
-                    }
-                    loading={loading}
-                  />
-                )}
-              />
-            </Switch>
-          </div>
+          <Switch>
+            <Route
+              exact
+              path='/'
+              render={props => <Home/>}
+            />
+
+            <Route
+              exact
+              path="/users"
+              render={props => <UserList users={users} loading={loading} />}
+            />
+
+            <Route exact path="/about" component={About} />
+
+            <Route
+              exact
+              path="/users/:login/profile"
+              render={props => (
+                <UserProfile
+                  {...props}
+                  user={user}
+                  getUserByUsername={username =>
+                    this.getUserByUsername(username)
+                  }
+                  loading={loading}
+                />
+              )}
+            />
+          </Switch>
         </div>
-      </Router>
+      </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
