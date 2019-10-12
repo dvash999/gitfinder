@@ -1,5 +1,5 @@
 import React from "react";
-import UserItem from "./User";
+import User from "./User";
 import Spinner from "../layout/spinner/Spinner";
 
 const UserList = ({ users, loading }) => {
@@ -9,7 +9,7 @@ const UserList = ({ users, loading }) => {
   return (
     <div style={userStyle}>
       {users.map(user => (
-        <UserItem key={user.id} user={user} />
+        <User key={user.id} user={user} />
       ))}
     </div>
   );
