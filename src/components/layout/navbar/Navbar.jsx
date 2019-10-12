@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Search from "../../Search";
 
-const Navbar = ({ setAlert, searchUsers }) => {
+const Navbar = ({ showAlert, searchUsers }) => {
   return (
     <nav className="navbar-custom navbar-color-custom d-flex justify-content-between py-2">
       {/*<Link to='/' className='m-0 p-0 remove_underscore'><p className="logo align-self-center">GitFinder</p></Link>*/}
@@ -21,7 +21,7 @@ const Navbar = ({ setAlert, searchUsers }) => {
         <div className="flex-grow-1 align-self-center">
           <Search
             searchUsers={searchQuery => searchUsers(searchQuery)}
-            setAlert={setAlert}
+            showAlert={showAlert}
           />
         </div>
 

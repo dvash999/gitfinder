@@ -339,7 +339,7 @@ select,
 textarea {
   display: block;
   /*width: 800px;*/
-  background-color: rgba(0,0,0,.05);
+  /*background-color: rgba(0,0,0,.05);*/
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
@@ -401,7 +401,8 @@ table th {
 }
 
 .navbar-custom a {
-  color: #464843;
+  /*color: #464843;*/
+  color: white;
   padding: 0.45rem;
   margin:  0.25rem;
 }
@@ -425,10 +426,11 @@ table th {
 .logo {
   padding: 0;
   margin: 0;
+  color: white;
 }
 
 .navbar-color-custom {
-  color: white;
+  background-color: var(--primary-color);
 }
 
 /* Mobile Styles */

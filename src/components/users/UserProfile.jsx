@@ -1,17 +1,19 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RepoList from "../repos/RepoList";
 import Spinner from "../layout/spinner/Spinner";
 
-class UserProfile extends Component {
-  componentDidMount() {
-    const credentials = this.props.match.params.login;
+const UserProfile = ({user, loading, repos, getUserProfile, getUserRepos, match}) => {
+  const credentials = match.params.login;
 
-    this.props.getUserProfile(credentials);
-    this.props.getUserRepos(credentials);
-  }
+  useEffect(() => {
+    getUserProfile(credentials);
+    getUserRepos(credentials);
+    //eslint-disable-next-line
+  }, []);
 
-  isHireable = hireable => {
+
+  const isHireable = hireable => {
     return hireable ? (
       <i className="fa fa-check text-success" />
     ) : (
@@ -19,7 +21,6 @@ class UserProfile extends Component {
     );
   };
 
-  render() {
     const {
       name,
       company,
@@ -34,9 +35,7 @@ class UserProfile extends Component {
       public_repos,
       public_gists,
       hireable
-    } = this.props.user;
-
-    const { loading, repos } = this.props;
+    } = user;
 
     if (loading) return <Spinner />;
 
@@ -58,7 +57,7 @@ class UserProfile extends Component {
               <div className="text-left">
                 <h1>{name}</h1>
                 {location && <p>Location: {location}</p>}
-                <p>Hireable: {this.isHireable(hireable)}</p>
+                <p>Hireable: {isHireable(hireable)}</p>
               </div>
             </div>
 
@@ -111,7 +110,6 @@ class UserProfile extends Component {
         <RepoList repos={repos} />
       </Fragment>
     );
-  }
-}
+  };
 
 export default UserProfile;
