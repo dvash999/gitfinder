@@ -2,27 +2,30 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Search from "../../Search";
 
-const Navbar = ({ setAlert, searchUsers }) => {
+const Navbar = ({ showAlert, searchUsers }) => {
   return (
-    <nav className="navbar-custom navbar-color-custom d-flex justify-content-between">
-      <Link to='/' className='m-0 p-0 remove_underscore'><h2 className="ml-2">GitFinder</h2></Link>
+    <nav className="navbar-custom navbar-color-custom d-flex justify-content-between py-2">
+      {/*<Link to='/' className='m-0 p-0 remove_underscore'><p className="logo align-self-center">GitFinder</p></Link>*/}
+      <div className="container-custom d-flex input-width">
+      <div className="d-flex align-items-center mr-3">
+        <ul>
+          <li className="">
+            <Link to="/" className='p-0'>Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+        </ul>
+      </div>
       <div className="d-flex flex-grow-1 justify-content-between">
-        <div className="flex-grow-1 mx-4">
+        <div className="flex-grow-1 align-self-center">
           <Search
             searchUsers={searchQuery => searchUsers(searchQuery)}
-            setAlert={setAlert}
+            showAlert={showAlert}
           />
         </div>
-        <div className="d-flex align-items-center">
-          <ul>
-            <li className="mr-3">
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </div>
+
+      </div>
       </div>
     </nav>
   );

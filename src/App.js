@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import axios from "axios";
 
@@ -11,105 +11,95 @@ import UserList from "./components/users/UserList";
 
 import "./App.css";
 
-class App extends Component {
-  state = {
-    users: [],
-    user: {},
-    repos: [],
-    loading: false,
-    alert: null,
+const App = history => {
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState({});
+  const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState(null);
+
+  const gitCredentials = `client_id=${process.env.REACT_APP_GITHUB_ID}&client_secret=${process.env.REACT_APP_GITHUB_SECRET}`;
+
+  const showAlert = (type, msg) => {
+    setAlert({ type, msg });
+    setTimeout(() => setAlert(null), 3000);
   };
 
-  gitCredentials;
-
-  constructor() {
-    super();
-    this.gitCredentials = `client_id=${process.env.REACT_APP_GITHUB_ID} &client_secret=${process.env.REACT_APP_GITHUB_SECRET}`;
-  }
-
-  setAlert = (type, msg) => {
-    this.setState({ alert: { type, msg } });
-    setTimeout(() => this.setState({ alert: null }), 3000);
-  };
-
-  getUsers = async searchQuery => {
-    this.setState({ loading: true });
+  const getUsers = async searchQuery => {
+    setLoading(true);
 
     const res = await axios.get(
-      `https://api.github.com/search/users?q=${searchQuery}&${this.gitCredentials}`
+      `https://api.github.com/search/users?q=${searchQuery}&${gitCredentials}`
     );
 
-    this.setState({ users: res.data.items, loading: false });
+    setUsers(res.data.items);
+    setLoading(true);
   };
 
-  searchUsers = searchQuery => {
-    this.getUsers(searchQuery);
-    this.props.history.push("/users");
+  const searchUsers = searchQuery => {
+    getUsers(searchQuery);
+
+    history.push("/users");
   };
 
-  getUserProfile = async username => {
-    this.setState({ loading: true });
+  const getUserProfile = async username => {
+    setLoading(true);
 
     const res = await axios.get(
-      `https://api.github.com/users/${username}?${this.gitCredentials}`
+      `https://api.github.com/users/${username}?${gitCredentials}`
     );
 
-    this.setState({ user: res.data, loading: false });
+    setUser(res.data);
+    setLoading(false);
   };
 
-  getUserRepos = async username => {
-    this.setState({ loading: true });
+  const getUserRepos = async username => {
+    setLoading(true);
 
     const res = await axios.get(
-      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&${this.gitCredentials}`
+      `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&${gitCredentials}`
     );
 
-    this.setState({repos: res.data, loading: false});
+    setRepos(res.data);
+    setLoading(true);
   };
 
-  render() {
-    const { users, user, repos, loading } = this.state;
-
-    return (
-      <div>
-        <Navbar
-          title="GitFinder"
-          users={users}
-          setAlert={this.setAlert}
-          searchUsers={this.searchUsers}
-        />
-        {this.state.alert && <Alert alert={this.state.alert} />}
-        <div className="container">
-          <Switch>
-            <Route exact path="/" render={props => <Home />} />
-
-            <Route
-              exact
-              path="/users"
-              render={props => <UserList users={users} loading={loading} />}
-            />
-
-            <Route exact path="/about" component={About} />
-
-            <Route
-              exact
-              path="/users/:login/profile"
-              render={props => (
-                <UserProfile
-                  {...props}
-                  user={user}
-                  repos={repos}
-                  getUserRepos={this.getUserRepos}
-                  getUserProfile={this.getUserProfile}
-                  loading={loading}
-                />
-              )}
-            />
-          </Switch>
-        </div>
+  return (
+    <div>
+      <Navbar
+        title="GitFinder"
+        users={users}
+        showAlert={showAlert}
+        searchUsers={searchUsers}
+      />
+      <div className="container-custom mt-3">
+        {alert && <Alert alert={alert} />}
+        <Switch>
+          <Route exact path="/" render={props => <Home />} />
+          <Route
+            exact
+            path="/users"
+            render={props => <UserList users={users} loading={loading} />}
+          />
+          <Route exact path="/about" component={About} />
+          <Route
+            exact
+            path="/users/:login/profile"
+            render={props => (
+              <UserProfile
+                {...props}
+                user={user}
+                repos={repos}
+                getUserRepos={getUserRepos}
+                getUserProfile={getUserProfile}
+                loading={loading}
+              />
+            )}
+          />
+        </Switch>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default withRouter(App);
