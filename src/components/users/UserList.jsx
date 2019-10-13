@@ -6,11 +6,11 @@ import Spinner from '../layout/spinner/Spinner';
 const UserList = () => {
   const githubContext = useContext(GithubContext);
 
-  const {loading, users} = githubContext;
+  const { loading, users } = githubContext;
 
-  if (loading) {
-    return <Spinner />;
-  }
+  if (loading) return <Spinner />;
+
+  if (users.length === 0) return <div>0 results for this search</div>;
 
   return (
     <div style={userStyle}>

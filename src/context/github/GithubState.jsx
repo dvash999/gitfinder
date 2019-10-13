@@ -1,28 +1,24 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import GithubContext from './githubContext';
-import GithubReducer from './githubReducer';
-import {
-  GET_USERS,
-  GET_USER_PROFILE,
-  GET_REPOS,
-  SET_ALERT,
-  SET_LOADING
-} from '../types';
+import githubReducer from './githubReducer';
+import { GET_USERS, GET_USER_PROFILE, GET_REPOS, SET_LOADING } from '../types';
 
 const GithubState = props => {
   const initialState = {
     users: [],
     user_profile: {},
     repos: [],
-    loading: false
+    loading: false,
+    alert: false
   };
 
-  const [state, dispatch] = useReducer(GithubReducer, initialState);
+  const [state, dispatch] = useReducer(githubReducer, initialState);
 
   const gitCredentials = `client_id=${process.env.REACT_APP_GITHUB_ID}&client_secret=${process.env.REACT_APP_GITHUB_SECRET}`;
 
   const getUsers = async searchQuery => {
+
     setLoading();
 
     const res = await axios.get(

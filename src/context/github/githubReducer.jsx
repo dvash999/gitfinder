@@ -1,10 +1,8 @@
 import {
   GET_USERS,
   GET_REPOS,
-  GET_USER,
-  SET_ALERT,
   SET_LOADING,
-  GET_USER_PROFILE
+  GET_USER_PROFILE,
 } from '../types';
 
 export default (state, action) => {
@@ -36,6 +34,7 @@ export default (state, action) => {
         ...state,
         loading: true
       };
+
     default:
       return state;
   }
