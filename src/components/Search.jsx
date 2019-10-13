@@ -1,44 +1,49 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
+import GithubContext from '../context/github/githubContext';
+import AlertContext from '../context/alerts/alertContext';
 
-const Search = ({ searchUsers, showAlert}) => {
+const Search = ({ history }) => {
+  const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
 
-  const [text, setText] = useState({
-    text: "",
-    isAlert: false
-  });
+  const { getUsers } = githubContext;
+  const { setAlert } = alertContext;
+
+  const [text, setText] = useState('');
 
   const onSubmit = e => {
     e.preventDefault();
 
-    if (!text)
-      return showAlert("Warning", "Something Went Wrong");
+    if (!text) return setAlert('Warning', 'Something Went Wrong');
 
-    searchUsers(text);
+    getUsers(text);
     setText('');
+
+    history.push('/users');
   };
 
-    return (
-      <Fragment>
-        <form className="d-flex" onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="text"
-            placeholder="Search Users..."
-            className="ml-4"
-            value={text}
-            onChange={e => setText(e.target.value)}
-          />
-          <button
-            type="submit"
-            value="Search"
-            className="btn btn-dark btn-custom"
-          >
-            Search
-          </button>
-        </form>
-      </Fragment>
-    );
+  return (
+    <Fragment>
+      <form className="d-flex" onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="text"
+          placeholder="Search Users..."
+          className="ml-4"
+          value={text}
+          onChange={e => setText(e.target.value)}
+        />
+        <button
+          type="submit"
+          value="Search"
+          className="btn btn-dark btn-custom"
+        >
+          Search
+        </button>
+      </form>
+    </Fragment>
+  );
+};
 
-}
-
-export default Search;
+export default withRouter(Search);
