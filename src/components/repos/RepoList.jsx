@@ -1,8 +1,8 @@
 import React from 'react';
 import RepoItem from './RepoItem';
 
-const RepoList = ({repos}) => {
-    return repos.map(repo => <RepoItem repo={repo} key={repo.id}/>)
+const RepoList = ({ repos }) => {
+  return repos.map(repo => <RepoItem repo={repo} key={repo.id} />);
 };
 
-export default RepoList
+export default RepoList;
